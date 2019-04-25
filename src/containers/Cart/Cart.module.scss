@@ -1,0 +1,11 @@
+.Order {
+  border: 1px solid #ccc;
+  height: 100%;
+  margin: 2px;
+  display: grid;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: salmon;
+  }
+}
