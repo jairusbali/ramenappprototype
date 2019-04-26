@@ -7,3 +7,10 @@ export const addOrder = (order, orderPrice) => {
     orderPrice: orderPrice
   };
 };
+
+export const removeOrder = id => {
+  return {
+    type: actionTypes.REMOVE_ORDER,
+    id: id
+  };
+};

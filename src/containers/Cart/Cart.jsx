@@ -14,6 +14,8 @@ import * as actions from "../../store/actions/index";
 
 import { priceMapping } from "../../CentralMenu/CentralMenu";
 
+import idGenerator from "react-id-generator";
+
 const styles = theme => ({
   fab: {
     margin: 0,
@@ -38,11 +40,6 @@ const cart = props => {
 
   const { classes, ...other } = props;
 
-  const orderToAdd = {
-    ramen: props.ramen,
-    noodle: props.noodle,
-    extras: props.extras
-  };
   const extraItemsPrices = props.extras.map(item => {
     return priceMapping[item];
   });
@@ -50,9 +47,15 @@ const cart = props => {
     return a + b;
   }, 0);
 
-  const singleOrderTotalPrice =
-    priceMapping[orderToAdd.ramen] + extrasTotalPrice;
+  const singleOrderTotalPrice = priceMapping[props.ramen] + extrasTotalPrice;
 
+  const orderToAdd = {
+    id: idGenerator(),
+    ramen: props.ramen,
+    noodle: props.noodle,
+    extras: props.extras,
+    orderPrice: singleOrderTotalPrice.toFixed(2)
+  };
   const toggleConfirmationDialog = () => {
     setOpenDialogConfirmation(!openDialogConfirmation);
   };
