@@ -1,9 +1,4 @@
-import React, { Component } from "react";
-
-import Menu from "./containers/Menu/Menu";
-
-import Cart from "./containers/Cart/Cart";
-
+import React from "react";
 import SignUp from "./components/MyForm/SignUp";
 import SignIn from "./components/MyForm/SignIn";
 import NavBar from "./components/NavBar/NavBar";

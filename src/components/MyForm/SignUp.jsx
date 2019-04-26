@@ -106,11 +106,11 @@ class SignUp extends React.Component {
         cancelAction={() => this.props.logout()}
       />
     ) : null;
-    const isLoading = this.props.loading ? (
-      <CircularProgress className={classes.progress} />
-    ) : (
-      <LockOutlinedIcon />
-    );
+    // const isLoading = this.props.loading ? (
+    //   <CircularProgress className={classes.progress} />
+    // ) : (
+    //   <LockOutlinedIcon />
+    // );
 
     return (
       <main className={classes.main}>
