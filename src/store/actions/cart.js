@@ -1,8 +1,9 @@
 import * as actionTypes from "./actionTypes";
 
-export const addOrder = order => {
+export const addOrder = (order, orderPrice) => {
   return {
     type: actionTypes.ADD_ORDER,
-    order: order
+    order: order,
+    orderPrice: orderPrice
   };
 };

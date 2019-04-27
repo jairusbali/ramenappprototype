@@ -7,10 +7,13 @@ import SlideAlertDialog from "../../components/SlideAlertDialog/SlideAlertDialog
 
 import { withStyles } from "@material-ui/core";
 
-import OrderSummary from "./OrderSummary/OrderSummary";
+import OrderSummary from "../../components/SlideAlertDialog/OrderSummary/OrderSummary";
 
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
+
+import { priceMapping } from "../../CentralMenu/CentralMenu";
+
 const styles = theme => ({
   fab: {
     margin: 0,
@@ -20,22 +23,17 @@ const styles = theme => ({
     right: 30,
     position: "fixed"
   }
-  // ,
-  // orderConfirmation: {
-  //   p: {
-  //     margin: 0,
-  //     padding: 0
-  //   }
-  // }
 });
 
 const cart = props => {
-  const [state, setState] = useState(false);
+  const [openDialogConfirmation, setOpenDialogConfirmation] = useState(false);
 
   useEffect(() => {
-    setState(false);
+    setOpenDialogConfirmation(false);
   }, []);
 
+  // user must at least choose a ramen and noodle type before
+  // they can add an order to the cart
   const enableAddOrder = props.ramen !== null && props.noodle !== null;
 
   const { classes, ...other } = props;
@@ -45,14 +43,23 @@ const cart = props => {
     noodle: props.noodle,
     extras: props.extras
   };
+  const extraItemsPrices = props.extras.map(item => {
+    return priceMapping[item];
+  });
+  const extrasTotalPrice = extraItemsPrices.reduce((a, b) => {
+    return a + b;
+  }, 0);
+
+  const singleOrderTotalPrice =
+    priceMapping[orderToAdd.ramen] + extrasTotalPrice;
 
   const toggleConfirmationDialog = () => {
-    setState(!state);
+    setOpenDialogConfirmation(!openDialogConfirmation);
   };
 
-  const addOrderToCart = newOrder => {
-    props.addOrder(newOrder);
-    setState(!state);
+  const addOrderToCart = (newOrder, newOrderPrice) => {
+    props.addOrder(newOrder, newOrderPrice);
+    setOpenDialogConfirmation(!openDialogConfirmation);
   };
   const title = "Add the following to your order?";
   const content = <OrderSummary {...other} />;
@@ -73,8 +80,10 @@ const cart = props => {
         {...props}
         title={title}
         content={content}
-        show={state}
-        okAction={() => addOrderToCart(orderToAdd)}
+        show={openDialogConfirmation}
+        okAction={() =>
+          addOrderToCart(orderToAdd, singleOrderTotalPrice.toFixed(2))
+        }
         cancelAction={() => toggleConfirmationDialog()}
       />
     </>
@@ -92,7 +101,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addOrder: order => dispatch(actions.addOrder(order))
+    addOrder: (order, price) => dispatch(actions.addOrder(order, price))
   };
 };
 

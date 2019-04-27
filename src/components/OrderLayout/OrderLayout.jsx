@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Menu from "../../containers/Menu/Menu";
 import Cart from "../../containers/Cart/Cart";

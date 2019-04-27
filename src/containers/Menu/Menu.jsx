@@ -6,7 +6,7 @@ import RamenMenu from "./RamenMenu/RamenMenu";
 import NoodleMenu from "./NoodleMenu/NoodleMenu";
 import ExtraMenu from "./ExtraMenu/ExtraMenu";
 
-const Menu = props => {
+const Menu = () => {
   return (
     <Grid container justify="center">
       <Grid item xs={12}>

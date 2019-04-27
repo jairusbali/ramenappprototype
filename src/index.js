@@ -21,6 +21,8 @@ import indigo from "@material-ui/core/colors/indigo";
 import pink from "@material-ui/core/colors/pink";
 import red from "@material-ui/core/colors/red";
 
+import CartTest from "./cartTest";
+
 const rootReducer = combineReducers({
   menu: menuReducer,
   cart: cartReducer,
@@ -52,7 +54,10 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       {/* <MuiThemeProvider theme={theme}> */}
-      <App />
+      {/* <App /> */}
+
+      <CartTest />
+
       {/* </MuiThemeProvider> */}
     </BrowserRouter>
   </Provider>,
