@@ -40,10 +40,10 @@ class GridListItems extends React.Component {
     }
 
     if (isWidthUp("md", this.props.width)) {
-      return 3;
+      return 2;
     }
     if (isWidthUp("sm", this.props.width)) {
-      return 2;
+      return 1;
     }
     // xs
     return 1;

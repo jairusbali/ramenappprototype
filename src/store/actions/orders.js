@@ -1,21 +1,36 @@
 import * as actionTypes from "./actionTypes";
+import axios from "../../axios-ramen";
 
-export const fetchOrdersInit = () => {
-  return {
-    type: actionTypes.ORDERS_INIT
+export const submitOrders = (token, orderData) => {
+  return dispatch => {
+    dispatch(sendOrdersInit());
+
+    axios
+      .post("/orders.json?auth=" + token, orderData)
+      .then(response => {
+        dispatch(sendOrdersSuccess(response.data.name));
+      })
+      .catch(err => {
+        dispatch(sendOrdersFail(err));
+      });
   };
 };
 
-export const fetchOrdersSuccess = data => {
+export const sendOrdersInit = () => {
   return {
-    type: actionTypes.ORDERS_SUCCESS,
-    orders: data
+    type: actionTypes.SEND_ORDERS_INIT
   };
 };
 
-export const fetchOrdersFail = err => {
+export const sendOrdersSuccess = id => {
   return {
-    type: actionTypes.ORDERS_FAIL,
+    type: actionTypes.SEND_ORDERS_SUCCESS,
+    orderId: id
+  };
+};
+export const sendOrdersFail = err => {
+  return {
+    type: actionTypes.SEND_ORDERS_FAIL,
     error: err
   };
 };

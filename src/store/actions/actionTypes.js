@@ -14,6 +14,7 @@ export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAIL = "AUTH_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
-export const ORDERS_INIT = "ORDERS_INIT";
-export const ORDERS_SUCCESS = "ORDERS_SUCCESS";
-export const ORDERS_FAIL = "ORDERS_FAIL";
+// orders
+export const SEND_ORDERS_INIT = "SEND_ORDERS_INIT";
+export const SEND_ORDERS_SUCCESS = "SEND_ORDERS_SUCCESS";
+export const SEND_ORDERS_FAIL = "SEND_ORDERS_FAIL";
