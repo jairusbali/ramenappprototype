@@ -88,8 +88,10 @@ function signIn(props) {
   );
 
   const authenticatedRedict = props.isAuthenticated ? (
-    <Redirect to="/order-menu" />
+    <Redirect to="/orders" />
   ) : null;
+
+  console.log("is authenticated", props.isAuthenticated);
 
   return (
     <main className={classes.main}>

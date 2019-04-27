@@ -129,7 +129,11 @@ function checkoutSummary(props) {
       <Paper>
         <Grid container direction="column" justify="center" alignItems="center">
           <Grid item xs={12} style={{ padding: "100px" }}>
-            <button>Submit</button>
+            <button
+              onClick={() => props.submitOrders(props.token, props.orders)}
+            >
+              Submit
+            </button>
           </Grid>
         </Grid>
       </Paper>
@@ -144,13 +148,16 @@ checkoutSummary.propTypes = {
 const mapStateToProps = state => {
   return {
     orders: state.cart.orders,
-    subTotal: state.cart.subTotal
+    subTotal: state.cart.subTotal,
+    token: state.auth.idToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeOrderById: id => dispatch(actions.removeOrder(id))
+    removeOrderById: id => dispatch(actions.removeOrder(id)),
+    submitOrders: (token, orderData) =>
+      dispatch(actions.submitOrders(token, orderData))
   };
 };
 

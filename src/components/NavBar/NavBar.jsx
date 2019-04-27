@@ -5,10 +5,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 
 import { Link } from "react-router-dom";
+
+import CheckoutSummary from "../../containers/CheckoutSummary/CheckoutSummary";
 
 const styles = {
   root: {
@@ -34,9 +34,17 @@ function navBar(props) {
           </Typography>
 
           {props.isAuthenticated ? (
-            <Button component={Link} to="/logout" color="inherit">
-              Logout
-            </Button>
+            <>
+              <Button component={Link} to="/orders" color="inherit">
+                Orders
+              </Button>
+              <Button component={Link} to="/orders/checkout" color="inherit">
+                Checkout
+              </Button>
+              <Button component={Link} to="/logout" color="inherit">
+                Logout
+              </Button>
+            </>
           ) : (
             <>
               <Button component={Link} to="/signin" color="inherit">

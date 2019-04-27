@@ -6,7 +6,14 @@ import * as serviceWorker from "./serviceWorker";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
-import { menuReducer, cartReducer, authReducer } from "./store/reducers/";
+import App from "./App";
+
+import {
+  menuReducer,
+  cartReducer,
+  authReducer,
+  ordersReducer
+} from "./store/reducers/";
 
 import thunk from "redux-thunk";
 
@@ -17,7 +24,8 @@ import CartTest from "./cartTest";
 const rootReducer = combineReducers({
   menu: menuReducer,
   cart: cartReducer,
-  auth: authReducer
+  auth: authReducer,
+  orders: ordersReducer
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -30,9 +38,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       {/* <MuiThemeProvider theme={theme}> */}
-      {/* <App /> */}
+      <App />
 
-      <CartTest />
+      {/* <CartTest /> */}
 
       {/* </MuiThemeProvider> */}
     </BrowserRouter>

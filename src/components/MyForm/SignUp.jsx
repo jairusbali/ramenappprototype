@@ -93,7 +93,7 @@ class SignUp extends React.Component {
     const { classes } = this.props;
 
     const authenticatedRedict = this.props.isAuthenticated ? (
-      <Redirect to="/order-menu" />
+      <Redirect to="/orders" />
     ) : null;
 
     const errorMessage = this.props.error ? (
