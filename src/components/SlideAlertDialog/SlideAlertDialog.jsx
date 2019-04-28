@@ -29,10 +29,18 @@ const alertDialogSlide = props => {
           {props.content}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => props.cancelAction()} color="primary">
+          <Button
+            onClick={() => props.cancelAction()}
+            color="primary"
+            variant="contained"
+          >
             Cancel
           </Button>
-          <Button onClick={() => props.okAction()} color="primary">
+          <Button
+            onClick={() => props.okAction()}
+            color="primary"
+            variant="contained"
+          >
             OK
           </Button>
         </DialogActions>
