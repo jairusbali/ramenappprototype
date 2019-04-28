@@ -21,13 +21,15 @@ const styles = theme => ({
   },
   Images: {
     "&:hover": {
-      opacity: 0.9
+      opacity: 0.65
     }
   },
   Checked: {
     opacity: 0.65
   }
 });
+
+const CELL_HEIGHT = 250;
 
 class GridListItems extends React.Component {
   getGridListCols = () => {
@@ -36,7 +38,7 @@ class GridListItems extends React.Component {
     }
 
     if (isWidthUp("lg", this.props.width)) {
-      return 4;
+      return 3;
     }
 
     if (isWidthUp("md", this.props.width)) {
@@ -55,7 +57,7 @@ class GridListItems extends React.Component {
     return (
       <div className={classes.root}>
         <GridList
-          cellHeight={400}
+          cellHeight={CELL_HEIGHT}
           className={classes.gridList}
           cols={this.getGridListCols()}
         >
@@ -78,23 +80,22 @@ class GridListItems extends React.Component {
                   <div
                     style={{
                       display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
+                      gridTemplateColumns: "1fr",
                       justifyContent: "space-around"
                     }}
                   >
                     <span
                       style={{
-                        display: "block",
-                        widht: "100%"
+                        display: "inline-block",
+                        width: "100%"
                       }}
                     >
                       {ramenOptions[option]}
                     </span>
                     <span
                       style={{
-                        display: "block",
-                        textAlign: "right",
-                        widht: "100%"
+                        display: "inline-block",
+                        width: "100%"
                       }}
                     >
                       {priceMapping[option]}
