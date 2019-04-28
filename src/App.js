@@ -3,6 +3,8 @@ import SignUp from "./components/MyForm/SignUp";
 import SignIn from "./components/MyForm/SignIn";
 import NavBar from "./components/NavBar/NavBar";
 
+import "./App.css";
+
 import { Route, Switch, Redirect } from "react-router-dom";
 import OrderLayout from "./components/OrderLayout/OrderLayout";
 
