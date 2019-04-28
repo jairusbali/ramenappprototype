@@ -87,16 +87,8 @@ function signIn(props) {
     <LockOutlinedIcon />
   );
 
-  const authenticatedRedict = props.isAuthenticated ? (
-    <Redirect to="/orders" />
-  ) : null;
-
-  console.log("is authenticated", props.isAuthenticated);
-
   return (
     <main className={classes.main}>
-      {authenticatedRedict}
-
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>{isLoading}</Avatar>
@@ -149,7 +141,6 @@ function signIn(props) {
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
-    isAuthenticated: state.auth.idToken !== null,
     error: state.auth.error,
     loading: state.auth.loading
   };

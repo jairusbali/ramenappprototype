@@ -3,7 +3,7 @@ import SignUp from "./components/MyForm/SignUp";
 import SignIn from "./components/MyForm/SignIn";
 import NavBar from "./components/NavBar/NavBar";
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import OrderLayout from "./components/OrderLayout/OrderLayout";
 
 import Logout from "./components/Logout/Logout";
@@ -15,26 +15,19 @@ const app = props => {
   const routes = props.isAuthenticated ? (
     <Switch>
       <Route path="/" exact strict component={OrderLayout} />
-      <Route path="/orders" strict component={OrderLayout} />
+      <Route path="/orders" exact component={OrderLayout} />
 
       <Route path="/logout" component={Logout} />
 
       <Route path="/orders/checkout" exact component={CheckoutSummary} />
 
-      <Route
-        path="*"
-        render={() => <h1 style={{ textAlign: "center" }}>Page not found</h1>}
-      />
+      <Redirect to="/" component={OrderLayout} />
     </Switch>
   ) : (
     <Switch>
-      <Route path="/" exact strict component={SignUp} />
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={SignIn} />
-      <Route
-        path="*"
-        render={() => <h1 style={{ textAlign: "center" }}>Page not found</h1>}
-      />
+      <Redirect to="/signup" component={SignUp} />
     </Switch>
   );
 

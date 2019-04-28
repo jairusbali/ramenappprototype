@@ -10,7 +10,11 @@ import { connect } from "react-redux";
 
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
+import CheckoutCustomerForm from "./CheckoutCustomerForm/CheckoutCustomerForm";
+
 import * as actions from "../../store/actions/index";
+
+import idGenerator from "react-id-generator";
 
 const TAX_RATE = 0.07;
 const DELIVERY_RATE = 8.95;
@@ -67,7 +71,7 @@ function checkoutSummary(props) {
               </Grid>
               {/* rows for extra toppings */}
               {extras.map(extra => (
-                <React.Fragment>
+                <React.Fragment key={idGenerator()}>
                   <Grid item xs={3} />
                   <Grid item xs={3} />
                   <Grid item xs={3}>
@@ -129,11 +133,7 @@ function checkoutSummary(props) {
       <Paper>
         <Grid container direction="column" justify="center" alignItems="center">
           <Grid item xs={12} style={{ padding: "100px" }}>
-            <button
-              onClick={() => props.submitOrders(props.token, props.orders)}
-            >
-              Submit
-            </button>
+            <CheckoutCustomerForm />
           </Grid>
         </Grid>
       </Paper>
