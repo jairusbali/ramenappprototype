@@ -19,11 +19,13 @@ const app = props => {
   const routes = props.isAuthenticated ? (
     <Switch>
       <Route path="/" exact strict component={OrderLayout} />
-      <Route path="/orders" exact component={OrderLayout} />
+      <Route path="/order" exact strict component={OrderLayout} />
 
-      <Route path="/logout" component={Logout} />
+      <Route path="/logout" exact component={Logout} />
 
-      <Route path="/orders/checkout" exact component={Checkout} />
+      {props.hasOrders ? (
+        <Route path="/orders/checkout" exact component={Checkout} />
+      ) : null}
 
       <Redirect to="/" component={OrderLayout} />
     </Switch>
@@ -37,7 +39,10 @@ const app = props => {
 
   return (
     <>
-      <NavBar isAuthenticated={props.isAuthenticated} />
+      <NavBar
+        isAuthenticated={props.isAuthenticated}
+        hasOrder={props.hasOrder}
+      />
       {routes}
     </>
   );
@@ -45,7 +50,8 @@ const app = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.idToken !== null
+    isAuthenticated: state.auth.idToken !== null,
+    hasOrder: state.cart.orders.length > 0
   };
 };
 
