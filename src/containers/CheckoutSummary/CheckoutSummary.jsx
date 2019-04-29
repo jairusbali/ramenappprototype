@@ -43,57 +43,73 @@ function checkoutSummary(props) {
     <React.Fragment>
       <Grid container>
         <Grid item container md={6}>
-          <Paper className={classes.paper}>
-            {/* Grid headers */}
-            <Grid item container xs={12}>
-              <Grid item xs={3} />
-              <Grid item xs={3}>
-                Ramen
+          {props.subTotal <= 0 ? (
+            <Paper className={classes.paper}>
+              <Grid
+                item
+                container
+                xs={12}
+                justify="center"
+                alignItems="center"
+                style={{ height: "100%" }}
+              >
+                y
+                <Grid item xs={5}>
+                  <h1>Please place an order</h1>
+                </Grid>
               </Grid>
-              <Grid item xs={3}>
-                Extras
-              </Grid>
-              <Grid item xs={3}>
-                Price
-              </Grid>
+            </Paper>
+          ) : (
+            <Paper className={classes.paper}>
+              <Grid item container xs={12}>
+                <Grid item xs={3} />
+                <Grid item xs={3}>
+                  Ramen
+                </Grid>
+                <Grid item xs={3}>
+                  Extras
+                </Grid>
+                <Grid item xs={3}>
+                  Price
+                </Grid>
 
-              {/* row ramen/noodle */}
-              {orders.map(({ ramen, noodle, extras, id }) => (
-                <React.Fragment key={id}>
-                  <Grid item xs={3}>
-                    <DeleteForeverIcon
-                      onClick={() => props.removeOrderById(id)}
-                      className={classes.icon}
-                    />
-                  </Grid>
-                  <Grid item xs={3}>
-                    {ramen + " " + noodle}
-                  </Grid>
+                {/* row ramen/noodle */}
+                {orders.map(({ ramen, noodle, extras, id }) => (
+                  <React.Fragment key={id}>
+                    <Grid item xs={3}>
+                      <DeleteForeverIcon
+                        onClick={() => props.removeOrderById(id)}
+                        className={classes.icon}
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
+                      {ramen + " " + noodle}
+                    </Grid>
 
-                  <Grid item xs={3} />
-                  <Grid item xs={3}>
-                    {priceMapping[ramen]}
-                  </Grid>
-                  {/* rows for extra toppings */}
-                  {extras.map(extra => (
-                    <React.Fragment key={idGenerator()}>
-                      <Grid item xs={3} />
-                      <Grid item xs={3} />
-                      <Grid item xs={3}>
-                        {extra}
-                      </Grid>
-                      <Grid item xs={3}>
-                        {priceMapping[extra]}
-                      </Grid>
-                    </React.Fragment>
-                  ))}
-                  {/* spacer row */}
-                  <Grid item xs={12} className={classes.spacer} />
-                </React.Fragment>
-              ))}
+                    <Grid item xs={3} />
+                    <Grid item xs={3}>
+                      {priceMapping[ramen]}
+                    </Grid>
+                    {/* rows for extra toppings */}
+                    {extras.map(extra => (
+                      <React.Fragment key={idGenerator()}>
+                        <Grid item xs={3} />
+                        <Grid item xs={3} />
+                        <Grid item xs={3}>
+                          {extra}
+                        </Grid>
+                        <Grid item xs={3}>
+                          {priceMapping[extra]}
+                        </Grid>
+                      </React.Fragment>
+                    ))}
+                    {/* spacer row */}
+                    <Grid item xs={12} className={classes.spacer} />
+                  </React.Fragment>
+                ))}
 
-              {/* rows for costs */}
-              {props.subTotal > 0 ? (
+                {/* rows for costs */}
+
                 <React.Fragment>
                   <Grid item xs={3} />
                   <Grid item xs={3} />
@@ -131,9 +147,9 @@ function checkoutSummary(props) {
                     {calculateTotalCost(props.subTotal)}
                   </Grid>
                 </React.Fragment>
-              ) : null}
-            </Grid>
-          </Paper>
+              </Grid>
+            </Paper>
+          )}
         </Grid>
         {/* end left side container */}
         <Grid item container xs={12} md={6}>
