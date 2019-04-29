@@ -13,14 +13,10 @@ const reducer = (state = initialState, action) => {
       const updatedOrder = [...state.orders];
       const newOrder = { ...action.order };
       updatedOrder.push(newOrder);
-      console.log(updatedOrder);
-
       const updatedPrice = +state.subTotal + +action.orderPrice;
 
-      console.log(updatedPrice);
+      console.log("updatedPrice", updatedPrice);
       return { ...state, orders: updatedOrder, subTotal: updatedPrice };
-      // state.orders.concat(newOrder),
-      // ...updatedOrder};
     }
     case actionTypes.REMOVE_ORDER: {
       const [currOrder] = state.orders.filter(order => {

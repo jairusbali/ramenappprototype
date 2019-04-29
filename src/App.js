@@ -1,7 +1,7 @@
 import React from "react";
-import SignUp from "./components/MyForm/SignUp";
-import SignIn from "./components/MyForm/SignIn";
-import NavBar from "./components/NavBar/NavBar";
+import SignUp from "./components/AuthForms/SignUp";
+import SignIn from "./components/AuthForms/SignIn";
+import NavBar from "./components/AppBar/AppBar";
 
 import "./App.css";
 
@@ -41,7 +41,7 @@ const app = props => {
     <>
       <NavBar
         isAuthenticated={props.isAuthenticated}
-        hasOrder={props.hasOrder}
+        hasOrders={props.hasOrders}
       />
       {routes}
     </>
@@ -51,7 +51,7 @@ const app = props => {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.idToken !== null,
-    hasOrder: state.cart.orders.length > 0
+    hasOrders: state.cart.orders.length > 0
   };
 };
 

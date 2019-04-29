@@ -38,7 +38,7 @@ function navBar(props) {
               <Button component={Link} to="/order" color="inherit">
                 Order
               </Button>
-              {props.hasOrder ? (
+              {props.hasOrders ? (
                 <Button component={Link} to="/orders/checkout" color="inherit">
                   Checkout
                 </Button>

@@ -4,4 +4,4 @@ export { addOrder, removeOrder } from "./cart";
 
 export { auth, logout, authCheckState } from "./auth";
 
-export { submitOrders } from "./orders";
+export { submitOrders } from "./checkout";
