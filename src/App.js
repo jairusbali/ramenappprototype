@@ -11,6 +11,8 @@ import OrderLayout from "./components/OrderLayout/OrderLayout";
 import Logout from "./components/Logout/Logout";
 import CheckoutSummary from "./containers/CheckoutSummary/CheckoutSummary";
 
+import Checkout from "./containers/Checkout/Checkout";
+
 import { connect } from "react-redux";
 
 const app = props => {
@@ -21,7 +23,7 @@ const app = props => {
 
       <Route path="/logout" component={Logout} />
 
-      <Route path="/orders/checkout" exact component={CheckoutSummary} />
+      <Route path="/orders/checkout" exact component={Checkout} />
 
       <Redirect to="/" component={OrderLayout} />
     </Switch>

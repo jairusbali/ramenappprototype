@@ -37,12 +37,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      {/* <MuiThemeProvider theme={theme}> */}
       <App />
-
-      {/* <CartTest /> */}
-
-      {/* </MuiThemeProvider> */}
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
