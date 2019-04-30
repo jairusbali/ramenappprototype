@@ -12,7 +12,10 @@ import CheckoutSummary from "../../containers/CheckoutSummary/CheckoutSummary";
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    position: 'sticky',
+    top: 0,
+    zIndex: 99
   },
   grow: {
     flexGrow: 1
