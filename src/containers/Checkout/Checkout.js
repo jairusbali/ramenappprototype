@@ -53,14 +53,14 @@ const styles = theme => ({
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step) {
+function getStepContent(step, handleNextAction) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressForm nextAction={handleNextAction} />;
     case 1:
-      return <PaymentForm />;
+      return <PaymentForm nextAction={handleNextAction} />;
     case 2:
-      return <Review />;
+      return <Review nextAction={handleNextAction} />;
     default:
       throw new Error("Unknown step");
   }
@@ -123,7 +123,7 @@ class Checkout extends React.Component {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  {getStepContent(activeStep)}
+                  {getStepContent(activeStep, this.handleNext)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button
@@ -133,14 +133,6 @@ class Checkout extends React.Component {
                         Back
                       </Button>
                     )}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={this.handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
                   </div>
                 </React.Fragment>
               )}
