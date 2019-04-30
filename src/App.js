@@ -1,49 +1,48 @@
-import React, { Component } from "react";
+import React from "react";
+import SignUp from "./components/AuthForms/SignUp";
+import SignIn from "./components/AuthForms/SignIn";
+import NavBar from "./components/AppBar/AppBar";
 
-import Menu from "./containers/Menu/Menu";
+import "./App.css";
 
-import Cart from "./containers/Cart/Cart";
-
-import SignUp from "./components/MyForm/SignUp";
-import SignIn from "./components/MyForm/SignIn";
-import NavBar from "./components/NavBar/NavBar";
-
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import OrderLayout from "./components/OrderLayout/OrderLayout";
 
 import Logout from "./components/Logout/Logout";
+import CheckoutSummary from "./containers/CheckoutSummary/CheckoutSummary";
+
+import Checkout from "./containers/Checkout/Checkout";
 
 import { connect } from "react-redux";
 
 const app = props => {
   const routes = props.isAuthenticated ? (
     <Switch>
-      <Route path="/order-menu" exact component={OrderLayout} />
-      <Route path="/logout" component={Logout} />
-      <Route path="/signup" component={SignUp} />
+      <Route path="/" exact strict component={OrderLayout} />
+      <Route path="/order" exact strict component={OrderLayout} />
 
-      <Route path="/signin" component={SignIn} />
+      <Route path="/logout" exact component={Logout} />
 
-      <Route
-        path="*"
-        render={() => <h1 style={{ textAlign: "center" }}>Page not found</h1>}
-      />
+      {props.hasOrders ? (
+        <Route path="/orders/checkout" exact component={Checkout} />
+      ) : null}
+
+      <Redirect to="/" component={OrderLayout} />
     </Switch>
   ) : (
     <Switch>
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={SignIn} />
-      <Route
-        path="*"
-        render={() => <h1 style={{ textAlign: "center" }}>Page not found</h1>}
-      />
-      />
+      <Redirect to="/signup" component={SignUp} />
     </Switch>
   );
 
   return (
     <>
-      <NavBar isAuthenticated={props.isAuthenticated} />
+      <NavBar
+        isAuthenticated={props.isAuthenticated}
+        hasOrders={props.hasOrders}
+      />
       {routes}
     </>
   );
@@ -51,7 +50,8 @@ const app = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.idToken !== null
+    isAuthenticated: state.auth.idToken !== null,
+    hasOrders: state.cart.orders.length > 0
   };
 };
 
