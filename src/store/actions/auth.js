@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 
 import axios from "axios";
+require("dotenv/config");
 
 export const authStart = () => {
   return {
@@ -34,10 +35,12 @@ export const auth = (email, password, isSignUp) => {
     };
 
     let url =
-      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyCc105jdNCASMJIslySAslIHCJF3zn7eFQ";
+      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
+      process.env.FIREBASE_API_KEY;
     if (!isSignUp)
       url =
-        "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCc105jdNCASMJIslySAslIHCJF3zn7eFQ";
+        "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
+        process.env.FIREBASE_API_KEY;
 
     axios
       .post(url, authData)
