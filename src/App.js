@@ -15,7 +15,12 @@ import Checkout from "./containers/Checkout/Checkout";
 
 import { connect } from "react-redux";
 
+import * as actions from "./store/actions/index";
+
 const app = props => {
+  // skip login step if there is a valid token id in localStorage
+  if (localStorage.getItem("token")) props.validUserAlreadyLoggedIn();
+
   const routes = props.isAuthenticated ? (
     <Switch>
       <Route path="/" exact strict component={OrderLayout} />
@@ -50,10 +55,18 @@ const app = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated:
-      state.auth.idToken !== null || localStorage.getItem("token") !== null,
+    isAuthenticated: state.auth.idToken !== null,
     hasOrders: state.cart.orders.length > 0
   };
 };
 
-export default connect(mapStateToProps)(app);
+const mapDispatchToProps = dispatch => {
+  return {
+    validUserAlreadyLoggedIn: () => dispatch(actions.validUserAlreadyLoggedIn())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(app);

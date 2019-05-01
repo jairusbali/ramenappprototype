@@ -13,6 +13,7 @@ export const AUTH_START = "AUTH_START";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAIL = "AUTH_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
+export const VALID_USER_ALREADY_LOGGED_IN = "VALID_USER_ALREADY_LOGGED_IN";
 
 // orders
 export const SEND_ORDERS_INIT = "SEND_ORDERS_INIT";

@@ -27,6 +27,7 @@ export const authFail = error => {
 // isSignUp false ==> SignIn functionality
 export const auth = (email, password, isSignUp) => {
   return dispatch => {
+    console.log(process.env.REACT_APP_FIREBASE_API_KEY);
     dispatch(authStart());
     const authData = {
       email: email,
@@ -36,11 +37,11 @@ export const auth = (email, password, isSignUp) => {
 
     let url =
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
-      process.env.FIREBASE_API_KEY;
+      process.env.REACT_APP_FIREBASE_API_KEY;
     if (!isSignUp)
       url =
         "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
-        process.env.FIREBASE_API_KEY;
+        process.env.REACT_APP_FIREBASE_API_KEY;
 
     axios
       .post(url, authData)
@@ -75,6 +76,33 @@ export const logout = () => {
   localStorage.removeItem("userId");
   return {
     type: actionTypes.AUTH_LOGOUT
+  };
+};
+
+export const validUserAlreadyLoggedIn = () => {
+  return dispatch => {
+    const url =
+      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=" +
+      process.env.REACT_APP_FIREBASE_API_KEY;
+    const localStoredIdToken = localStorage.getItem("token");
+    if (!localStoredIdToken) dispatch(logout());
+
+    const requestBodyPayload = {
+      idToken: localStoredIdToken
+    };
+
+    axios
+      .post(url, requestBodyPayload)
+      .then(response => {
+        const userId = (response.data.idToken = localStorage.setItem(
+          "userId",
+          response.data.users[0].localId
+        ));
+        dispatch(authSuccess(localStoredIdToken, userId));
+      })
+      .catch(err => {
+        dispatch(logout());
+      });
   };
 };
 
