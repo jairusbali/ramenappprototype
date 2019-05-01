@@ -50,7 +50,8 @@ const app = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.idToken !== null,
+    isAuthenticated:
+      state.auth.idToken !== null || localStorage.getItem("token") !== null,
     hasOrders: state.cart.orders.length > 0
   };
 };
