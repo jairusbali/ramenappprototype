@@ -1,18 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useaddressFormState, useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
 
-import { lettersOnly } from "./EntryValidation";
-
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { TextValidator } from "react-material-ui-form-validator";
 
 import { CheckoutContext } from "../Checkout";
 
-function AddressForm(props) {
-  const [state, dispatch] = useContext(CheckoutContext);
+function AddressForm() {
+  const [addressFormState, addressFormDispatch] = useContext(CheckoutContext);
 
   return (
     <React.Fragment>
@@ -35,13 +30,13 @@ function AddressForm(props) {
             fullWidth
             autoComplete="fname"
             onChange={e =>
-              dispatch({
+              addressFormDispatch({
                 type: "field",
                 name: e.target.name,
                 value: e.target.value
               })
             }
-            value={state.firstName}
+            value={addressFormState.firstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -58,13 +53,13 @@ function AddressForm(props) {
             ]}
             autoComplete="lname"
             onChange={e =>
-              dispatch({
+              addressFormDispatch({
                 type: "field",
                 name: e.target.name,
                 value: e.target.value
               })
             }
-            value={state.lastName}
+            value={addressFormState.lastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -78,13 +73,13 @@ function AddressForm(props) {
             fullWidth
             autoComplete="billing address-line1"
             onChange={e =>
-              dispatch({
+              addressFormDispatch({
                 type: "field",
                 name: e.target.name,
                 value: e.target.value
               })
             }
-            value={state.address1}
+            value={addressFormState.address1}
           />
         </Grid>
         <Grid item xs={12}>
@@ -110,13 +105,13 @@ function AddressForm(props) {
               "Contains an invalid character"
             ]}
             onChange={e =>
-              dispatch({
+              addressFormDispatch({
                 type: "field",
                 name: e.target.name,
                 value: e.target.value
               })
             }
-            value={state.city}
+            value={addressFormState.city}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -131,13 +126,13 @@ function AddressForm(props) {
             ]}
             fullWidth
             onChange={e =>
-              dispatch({
+              addressFormDispatch({
                 type: "field",
                 name: e.target.name,
                 value: e.target.value
               })
             }
-            value={state.state}
+            value={addressFormState.state}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -151,13 +146,13 @@ function AddressForm(props) {
             validators={["required"]}
             errorMessages={["this field is required"]}
             onChange={e =>
-              dispatch({
+              addressFormDispatch({
                 type: "field",
                 name: e.target.name,
                 value: e.target.value
               })
             }
-            value={state.zip}
+            value={addressFormState.zip}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -174,13 +169,13 @@ function AddressForm(props) {
               "Contains an invalid character"
             ]}
             onChange={e =>
-              dispatch({
+              addressFormDispatch({
                 type: "field",
                 name: e.target.name,
                 value: e.target.value
               })
             }
-            value={state.country}
+            value={addressFormState.country}
           />
         </Grid>
         {/* <Grid item xs={12}>

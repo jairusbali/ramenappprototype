@@ -52,9 +52,26 @@ const styles = theme => ({
   }
 });
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+// Removed "Payment details",
+const steps = ["Delivery address", "Review your order"];
 
-const checkoutReducer = (state, action) => {
+const checkoutAddressFormReducer = (state, action) => {
+  switch (action.type) {
+    case "field":
+      return {
+        ...state,
+        [action.name]: action.value
+      };
+
+    case "reset":
+      return action.payload;
+
+    default:
+      return state;
+  }
+};
+
+const checkoutPaymentFormReducer = (state, action) => {
   switch (action.type) {
     case "field":
       return {
@@ -86,21 +103,24 @@ const Checkout = props => {
   const [activeStep, setActiveStep] = useState(0);
   const validatorFormRef = useRef(null);
 
-  const [state, dispatch] = useReducer(
-    checkoutReducer,
+  const [addressFormState, addressFormDispatch] = useReducer(
+    checkoutAddressFormReducer,
     addressFormInitialState
   );
 
   // load stored data if any, on componentDidMount
   useEffect(() => {
     const data = localStorage.getItem("ramenAppAddressFormData");
-    if (data) dispatch({ type: "reset", payload: JSON.parse(data) });
+    if (data) addressFormDispatch({ type: "reset", payload: JSON.parse(data) });
   }, []);
 
   // save to local storage
   useEffect(() => {
-    localStorage.setItem("ramenAppAddressFormData", JSON.stringify(state));
-  }, [state]);
+    localStorage.setItem(
+      "ramenAppAddressFormData",
+      JSON.stringify(addressFormState)
+    );
+  }, [addressFormState]);
 
   const handleNext = event => {
     event.preventDefault();
@@ -128,9 +148,8 @@ const Checkout = props => {
       case 0:
         return <AddressForm />;
       case 1:
-        return <PaymentForm />;
-      case 2:
         return <Review />;
+
       default:
         throw new Error("Unknown step");
     }
@@ -146,7 +165,7 @@ const Checkout = props => {
   const { classes } = props;
 
   return (
-    <CheckoutContext.Provider value={[state, dispatch]}>
+    <CheckoutContext.Provider value={[addressFormState, addressFormDispatch]}>
       <ValidatorForm
         ref={validatorFormRef}
         instantValidate

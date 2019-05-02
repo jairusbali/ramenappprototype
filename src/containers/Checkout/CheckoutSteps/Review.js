@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -9,13 +9,8 @@ import Grid from "@material-ui/core/Grid";
 
 import { connect } from "react-redux";
 
-const products = [
-  { name: "Product 1", desc: "A nice thing", price: "$9.99" },
-  { name: "Product 2", desc: "Another thing", price: "$3.45" },
-  { name: "Product 3", desc: "Something else", price: "$6.51" },
-  { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
-  { name: "Shipping", desc: "", price: "Free" }
-];
+import { CheckoutContext } from "../Checkout";
+
 const addresses = [
   "1 Material-UI Drive",
   "Reactville",
@@ -46,6 +41,10 @@ const DELIVERY_FEE = 8.95;
 const TAX_RATE = 0.13;
 
 function Review(props) {
+  const [addressFormState] = useContext(CheckoutContext);
+
+  const { firstName, lastName, ...addressInfo } = addressFormState;
+
   const { classes, orders, subTotal } = props;
 
   const taxes = parseFloat(TAX_RATE * subTotal);
@@ -54,7 +53,7 @@ function Review(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Order summary:
       </Typography>
       <List disablePadding>
         {orders.map(order => (
@@ -93,14 +92,17 @@ function Review(props) {
         </ListItem>
       </List>
       <Grid container spacing={16}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+            Delivering to:
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>{`${firstName} ${lastName}`}</Typography>
+
+          <Typography gutterBottom>
+            {Object.values(addressInfo).join(", ")}
+          </Typography>
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
+        {/* <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details
           </Typography>
@@ -116,7 +118,7 @@ function Review(props) {
               </React.Fragment>
             ))}
           </Grid>
-        </Grid>
+        </Grid> */}
       </Grid>
     </React.Fragment>
   );
