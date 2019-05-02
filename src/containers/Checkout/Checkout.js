@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -13,6 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./CheckoutSteps/AddressForm";
 import PaymentForm from "./CheckoutSteps/PaymentForm";
 import Review from "./CheckoutSteps/Review";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
+import { lettersOnly } from "./CheckoutSteps/EntryValidation";
 
 const styles = theme => ({
   appBar: {
@@ -53,96 +54,110 @@ const styles = theme => ({
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step, handleNextAction) {
-  switch (step) {
-    case 0:
-      return <AddressForm nextAction={handleNextAction} />;
-    case 1:
-      return <PaymentForm nextAction={handleNextAction} />;
-    case 2:
-      return <Review nextAction={handleNextAction} />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
+const Checkout = props => {
+  const [activeStep, setActiveStep] = useState(0);
+  const validatorFormRef = useRef(null);
 
-class Checkout extends React.Component {
-  state = {
-    activeStep: 0
-  };
-
-  handleNext = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep + 1
-    }));
-  };
-
-  handleBack = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep - 1
-    }));
-  };
-
-  handleReset = () => {
-    this.setState({
-      activeStep: 0
+  const handleNext = event => {
+    event.preventDefault();
+    validatorFormRef.isFormValid(false).then(isValid => {
+      if (isValid) {
+        const nextStep = activeStep + 1;
+        setActiveStep(nextStep);
+      }
     });
   };
 
-  render() {
-    const { classes } = this.props;
-    const { activeStep } = this.state;
+  const handleBack = event => {
+    event.preventDefault();
+    const prevStep = activeStep - 1;
+    setActiveStep(prevStep);
+  };
 
-    return (
-      <React.Fragment>
-        <CssBaseline />
+  const handleReset = () => {
+    setActiveStep(0);
+  };
 
-        <main className={classes.layout}>
-          <Paper className={classes.paper}>
-            <Typography component="h1" variant="h4" align="center">
-              Checkout
-            </Typography>
-            <Stepper activeStep={activeStep} className={classes.stepper}>
-              {steps.map(label => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            <React.Fragment>
-              {activeStep === steps.length ? (
-                <React.Fragment>
-                  <Typography variant="h5" gutterBottom>
-                    Thank you for your order.
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    Your order number is #2001539. We have emailed your order
-                    confirmation, and will send you an update when your order
-                    has shipped.
-                  </Typography>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  {getStepContent(activeStep, this.handleNext)}
-                  <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                      <Button
-                        onClick={this.handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                    )}
-                  </div>
-                </React.Fragment>
-              )}
-            </React.Fragment>
-          </Paper>
-        </main>
-      </React.Fragment>
-    );
-  }
-}
+  const getStepContent = step => {
+    switch (step) {
+      case 0:
+        return <AddressForm />;
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error("Unknown step");
+    }
+  };
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("lettersOnly", value => {
+      if (lettersOnly(value)) return false;
+      return true;
+    });
+  }, []);
+
+  const { classes } = props;
+
+  return (
+    <ValidatorForm
+      ref={validatorFormRef}
+      instantValidate
+      onSubmit={() => console.log("submitting")}
+    >
+      <CssBaseline />
+
+      <main className={classes.layout}>
+        <Paper className={classes.paper}>
+          <Typography component="h1" variant="h4" align="center">
+            Checkout
+          </Typography>
+          <Stepper activeStep={activeStep} className={classes.stepper}>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <React.Fragment>
+            {activeStep === steps.length ? (
+              <React.Fragment>
+                <Typography variant="h5" gutterBottom>
+                  Thank you for your order.
+                </Typography>
+                <Typography variant="subtitle1">
+                  Your order number is #2001539. We have emailed your order
+                  confirmation, and will send you an update when your order has
+                  shipped.
+                </Typography>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {getStepContent(activeStep)}
+                <div className={classes.buttons}>
+                  {activeStep !== 0 && (
+                    <Button onClick={handleBack} className={classes.button}>
+                      Back
+                    </Button>
+                  )}
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
+                </div>
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        </Paper>
+      </main>
+    </ValidatorForm>
+  );
+};
 
 Checkout.propTypes = {
   classes: PropTypes.object.isRequired
