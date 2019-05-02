@@ -15,7 +15,6 @@ const reducer = (state = initialState, action) => {
       updatedOrder.push(newOrder);
       const updatedPrice = +state.subTotal + +action.orderPrice;
 
-      console.log("updatedPrice", updatedPrice);
       return { ...state, orders: updatedOrder, subTotal: updatedPrice };
     }
     case actionTypes.REMOVE_ORDER: {

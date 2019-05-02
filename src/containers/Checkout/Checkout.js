@@ -13,6 +13,10 @@ import PaymentForm from "./CheckoutSteps/PaymentForm";
 import Review from "./CheckoutSteps/Review";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
+import { connect } from "react-redux";
+
+import * as actions from "../../store/actions";
+
 import { lettersOnly } from "./CheckoutSteps/EntryValidation";
 
 const styles = theme => ({
@@ -112,6 +116,11 @@ const Checkout = props => {
   useEffect(() => {
     const data = localStorage.getItem("ramenAppAddressFormData");
     if (data) addressFormDispatch({ type: "reset", payload: JSON.parse(data) });
+
+    return () => {
+      console.log("addressFormState", addressFormState);
+      console.log("unmounting...");
+    };
   }, []);
 
   // save to local storage
@@ -120,6 +129,8 @@ const Checkout = props => {
       "ramenAppAddressFormData",
       JSON.stringify(addressFormState)
     );
+
+    console.log(addressFormState);
   }, [addressFormState]);
 
   const handleNext = event => {
@@ -187,17 +198,24 @@ const Checkout = props => {
             </Stepper>
             <React.Fragment>
               {activeStep === steps.length ? (
-                <React.Fragment>
-                  <Typography variant="h5" gutterBottom>
-                    Thank you for your order.
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    Your order number is #2001539. We have emailed your order
-                    confirmation, and will send you an update when your order
-                    has shipped.
-                  </Typography>
-                </React.Fragment>
+                // send order
+
+                props.submitOrders(
+                  props.idToken,
+                  props.orders,
+                  addressFormState
+                )
               ) : (
+                // <React.Fragment>
+                //   // <Typography variant="h5" gutterBottom>
+                //   //   Thank you for your order.
+                //   // </Typography>
+                //   // <Typography variant="subtitle1">
+                //   //   Your order number is #2001539. We have emailed your order
+                //   //   confirmation, and will send you an update when your order
+                //   //   has shipped.
+                //   // </Typography>
+                // </React.Fragment>
                 <React.Fragment>
                   {getStepContent(activeStep)}
                   <div className={classes.buttons}>
@@ -229,4 +247,22 @@ Checkout.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Checkout);
+const mapStateToProps = state => {
+  return {
+    orders: state.cart.orders,
+    idToken: state.auth.idToken
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    submitOrders: (token, orders, deliveryInfo) => {
+      dispatch(actions.submitOrders(token, orders, deliveryInfo));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Checkout));

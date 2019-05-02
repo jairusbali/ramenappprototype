@@ -12,7 +12,7 @@ function AddressForm() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Delivery address
       </Typography>
 
       <Grid container spacing={24}>

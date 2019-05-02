@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   sending: false,
-  purchased: false
+  purchased: false,
+  error: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +26,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SEND_ORDERS_FAIL: {
       return {
         ...state,
-        sending: false
+        sending: false,
+        error: action.error
       };
     }
 

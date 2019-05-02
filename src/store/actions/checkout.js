@@ -1,12 +1,17 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-ramen";
 
-export const submitOrders = (token, orderData) => {
+export const submitOrders = (token, orderData, deliveryData) => {
   return dispatch => {
     dispatch(sendOrdersInit());
 
+    const data = {
+      orders: { ...orderData },
+      deliveryInfo: { ...deliveryData }
+    };
+
     axios
-      .post("/orders.json?auth=" + token, orderData)
+      .post("/orders.json?auth=" + token, data)
       .then(response => {
         dispatch(sendOrdersSuccess(response.data.name));
       })

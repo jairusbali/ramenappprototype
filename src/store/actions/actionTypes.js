@@ -15,7 +15,7 @@ export const AUTH_FAIL = "AUTH_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const VALID_USER_ALREADY_LOGGED_IN = "VALID_USER_ALREADY_LOGGED_IN";
 
-// orders
+// checkout
 export const SEND_ORDERS_INIT = "SEND_ORDERS_INIT";
 export const SEND_ORDERS_SUCCESS = "SEND_ORDERS_SUCCESS";
 export const SEND_ORDERS_FAIL = "SEND_ORDERS_FAIL";
