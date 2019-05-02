@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -9,7 +9,11 @@ import { lettersOnly } from "./EntryValidation";
 
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
+import { CheckoutContext } from "../Checkout";
+
 function AddressForm(props) {
+  const [state, dispatch] = useContext(CheckoutContext);
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -30,6 +34,14 @@ function AddressForm(props) {
             ]}
             fullWidth
             autoComplete="fname"
+            onChange={e =>
+              dispatch({
+                type: "field",
+                name: e.target.name,
+                value: e.target.value
+              })
+            }
+            value={state.firstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -45,6 +57,14 @@ function AddressForm(props) {
               "Contains an invalid character"
             ]}
             autoComplete="lname"
+            onChange={e =>
+              dispatch({
+                type: "field",
+                name: e.target.name,
+                value: e.target.value
+              })
+            }
+            value={state.lastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -57,6 +77,14 @@ function AddressForm(props) {
             label="Address line 1"
             fullWidth
             autoComplete="billing address-line1"
+            onChange={e =>
+              dispatch({
+                type: "field",
+                name: e.target.name,
+                value: e.target.value
+              })
+            }
+            value={state.address1}
           />
         </Grid>
         <Grid item xs={12}>
@@ -81,6 +109,14 @@ function AddressForm(props) {
               "this field is required",
               "Contains an invalid character"
             ]}
+            onChange={e =>
+              dispatch({
+                type: "field",
+                name: e.target.name,
+                value: e.target.value
+              })
+            }
+            value={state.city}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -94,6 +130,14 @@ function AddressForm(props) {
               "Contains an invalid character"
             ]}
             fullWidth
+            onChange={e =>
+              dispatch({
+                type: "field",
+                name: e.target.name,
+                value: e.target.value
+              })
+            }
+            value={state.state}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -106,6 +150,14 @@ function AddressForm(props) {
             autoComplete="billing postal-code"
             validators={["required"]}
             errorMessages={["this field is required"]}
+            onChange={e =>
+              dispatch({
+                type: "field",
+                name: e.target.name,
+                value: e.target.value
+              })
+            }
+            value={state.zip}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -121,16 +173,24 @@ function AddressForm(props) {
               "this field is required",
               "Contains an invalid character"
             ]}
+            onChange={e =>
+              dispatch({
+                type: "field",
+                name: e.target.name,
+                value: e.target.value
+              })
+            }
+            value={state.country}
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormControlLabel
             control={
               <Checkbox color="secondary" name="saveAddress" value="yes" />
             }
             label="Use this address for payment details"
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </React.Fragment>
   );

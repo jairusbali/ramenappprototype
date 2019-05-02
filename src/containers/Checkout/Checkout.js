@@ -59,8 +59,11 @@ const checkoutReducer = (state, action) => {
     case "field":
       return {
         ...state,
-        [action.name]: action.payload
+        [action.name]: action.value
       };
+
+    case "reset":
+      return action.payload;
 
     default:
       return state;
@@ -77,7 +80,7 @@ const addressFormInitialState = {
   country: ""
 };
 
-const CheckoutContext = React.createContext();
+export const CheckoutContext = React.createContext();
 
 const Checkout = props => {
   const [activeStep, setActiveStep] = useState(0);
@@ -87,6 +90,17 @@ const Checkout = props => {
     checkoutReducer,
     addressFormInitialState
   );
+
+  // load stored data if any, on componentDidMount
+  useEffect(() => {
+    const data = localStorage.getItem("ramenAppAddressFormData");
+    if (data) dispatch({ type: "reset", payload: JSON.parse(data) });
+  }, []);
+
+  // save to local storage
+  useEffect(() => {
+    localStorage.setItem("ramenAppAddressFormData", JSON.stringify(state));
+  }, [state]);
 
   const handleNext = event => {
     event.preventDefault();
@@ -114,7 +128,7 @@ const Checkout = props => {
       case 0:
         return <AddressForm />;
       case 1:
-        return <AddressForm />;
+        return <PaymentForm />;
       case 2:
         return <Review />;
       default:
@@ -132,7 +146,7 @@ const Checkout = props => {
   const { classes } = props;
 
   return (
-    <CheckoutContext.Provider value={dispatch}>
+    <CheckoutContext.Provider value={[state, dispatch]}>
       <ValidatorForm
         ref={validatorFormRef}
         instantValidate
