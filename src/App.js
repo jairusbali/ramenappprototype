@@ -15,6 +15,8 @@ import Checkout from "./containers/Checkout/Checkout";
 
 import { connect } from "react-redux";
 
+import OrdersHistory from "./containers/OrdersHistory/OrdersHistory";
+
 import * as actions from "./store/actions/index";
 
 import axios from "./axios-ramen";
@@ -36,17 +38,7 @@ const app = props => {
       ) : null}
 
       {props.hasOrders ? (
-        <Route
-          path="/orders/history"
-          exact
-          render={() => {
-            return (
-              <React.Fragment>
-                <h1>Get history here</h1>; ;
-              </React.Fragment>
-            );
-          }}
-        />
+        <Route path="/orders/history" exact component={OrdersHistory} />
       ) : null}
 
       <Redirect to="/" component={OrderLayout} />

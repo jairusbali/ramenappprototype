@@ -12,7 +12,8 @@ import {
   menuReducer,
   cartReducer,
   authReducer,
-  checkoutReducer
+  checkoutReducer,
+  ordersHistoryReducer
 } from "./store/reducers/";
 
 import thunk from "redux-thunk";
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   menu: menuReducer,
   cart: cartReducer,
   auth: authReducer,
-  checkout: checkoutReducer
+  checkout: checkoutReducer,
+  ordersHistory: ordersHistoryReducer
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
