@@ -38,7 +38,7 @@ function navBar(props) {
 
           {props.isAuthenticated ? (
             <>
-              <Button component={Link} to="/order" color="inherit">
+              <Button component={Link} to="/menu" color="inherit">
                 Menu
               </Button>
               {props.hasOrders ? (

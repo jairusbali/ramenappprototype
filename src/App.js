@@ -27,7 +27,7 @@ const app = props => {
   const routes = props.isAuthenticated ? (
     <Switch>
       <Route path="/" exact strict component={OrderLayout} />
-      <Route path="/order" exact strict component={OrderLayout} />
+      <Route path="/menu" exact strict component={OrderLayout} />
 
       <Route path="/logout" exact component={Logout} />
 
@@ -42,22 +42,7 @@ const app = props => {
           render={() => {
             return (
               <React.Fragment>
-                <h1>Get history here</h1>;
-                {axios
-                  .get(
-                    "/orders.json?auth=" +
-                      props.idToken +
-                      '&orderBy="userId"&equalTo="' +
-                      props.userId +
-                      '"'
-                  )
-                  .then(response => {
-                    console.log(response.data);
-                  })
-                  .catch(err => {
-                    console.log(err);
-                  })}
-                ;
+                <h1>Get history here</h1>; ;
               </React.Fragment>
             );
           }}
