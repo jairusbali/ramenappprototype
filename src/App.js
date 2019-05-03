@@ -19,7 +19,8 @@ import * as actions from "./store/actions/index";
 
 const app = props => {
   // skip login step if there is a valid token id in localStorage
-  if (localStorage.getItem("token")) props.validUserAlreadyLoggedIn();
+  if (localStorage.getItem("token") && !props.isAuthenticated)
+    props.validUserAlreadyLoggedIn();
 
   const routes = props.isAuthenticated ? (
     <Switch>

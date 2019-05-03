@@ -94,10 +94,8 @@ export const validUserAlreadyLoggedIn = () => {
     axios
       .post(url, requestBodyPayload)
       .then(response => {
-        const userId = (response.data.idToken = localStorage.setItem(
-          "userId",
-          response.data.users[0].localId
-        ));
+        const userId = response.data.users[0].localId;
+        localStorage.setItem("userId", userId);
         dispatch(authSuccess(localStoredIdToken, userId));
       })
       .catch(err => {

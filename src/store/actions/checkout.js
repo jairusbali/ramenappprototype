@@ -10,14 +10,19 @@ export const submitOrders = (token, orderData, deliveryData) => {
       deliveryInfo: { ...deliveryData }
     };
 
-    axios
-      .post("/orders.json?auth=" + token, data)
-      .then(response => {
-        dispatch(sendOrdersSuccess(response.data.name));
-      })
-      .catch(err => {
-        dispatch(sendOrdersFail(err));
-      });
+    setTimeout(() => {
+      console.log("sending", data);
+      dispatch(sendOrdersSuccess("SUCCESS!"));
+    }, 3000);
+
+    // axios
+    //   .post("/orders.json?auth=" + token, data)
+    //   .then(response => {
+    //     dispatch(sendOrdersSuccess(response.data.name));
+    //   })
+    //   .catch(err => {
+    //     dispatch(sendOrdersFail(err));
+    //   });
   };
 };
 
@@ -30,7 +35,7 @@ export const sendOrdersInit = () => {
 export const sendOrdersSuccess = id => {
   return {
     type: actionTypes.SEND_ORDERS_SUCCESS,
-    orderId: id
+    purchaseOrderId: id
   };
 };
 export const sendOrdersFail = err => {

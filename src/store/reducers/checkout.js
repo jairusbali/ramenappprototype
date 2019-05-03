@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   sending: false,
-  purchased: false,
+  purchaseOrderId: null,
   error: null
 };
 
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sending: false,
-        purchased: true
+        purchaseOrderId: action.purchaseOrderId
       };
     }
 

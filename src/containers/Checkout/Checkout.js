@@ -12,6 +12,7 @@ import AddressForm from "./CheckoutSteps/AddressForm";
 import PaymentForm from "./CheckoutSteps/PaymentForm";
 import Review from "./CheckoutSteps/Review";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { connect } from "react-redux";
 
@@ -175,6 +176,34 @@ const Checkout = props => {
 
   const { classes } = props;
 
+  const circularProgress = props.sendingOrder ? <CircularProgress /> : null;
+
+  console.log("checkout submit");
+  if (activeStep === steps.length && !props.purchased && !props.sendingOrder)
+    props.submitOrders(props.idToken, props.orders, addressFormState);
+
+  const formButtons =
+    activeStep < steps.length ? (
+      <React.Fragment>
+        {getStepContent(activeStep)}
+        <div className={classes.buttons}>
+          {activeStep !== 0 && (
+            <Button onClick={handleBack} className={classes.button}>
+              Back
+            </Button>
+          )}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNext}
+            className={classes.button}
+          >
+            {activeStep === steps.length - 1 ? "Place order" : "Next"}
+          </Button>
+        </div>
+      </React.Fragment>
+    ) : null;
+
   return (
     <CheckoutContext.Provider value={[addressFormState, addressFormDispatch]}>
       <ValidatorForm
@@ -196,46 +225,9 @@ const Checkout = props => {
                 </Step>
               ))}
             </Stepper>
-            <React.Fragment>
-              {activeStep === steps.length ? (
-                // send order
-
-                props.submitOrders(
-                  props.idToken,
-                  props.orders,
-                  addressFormState
-                )
-              ) : (
-                // <React.Fragment>
-                //   // <Typography variant="h5" gutterBottom>
-                //   //   Thank you for your order.
-                //   // </Typography>
-                //   // <Typography variant="subtitle1">
-                //   //   Your order number is #2001539. We have emailed your order
-                //   //   confirmation, and will send you an update when your order
-                //   //   has shipped.
-                //   // </Typography>
-                // </React.Fragment>
-                <React.Fragment>
-                  {getStepContent(activeStep)}
-                  <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                      <Button onClick={handleBack} className={classes.button}>
-                        Back
-                      </Button>
-                    )}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
-                  </div>
-                </React.Fragment>
-              )}
-            </React.Fragment>
+            {/* here */}
+            {circularProgress}
+            {formButtons}
           </Paper>
         </main>
       </ValidatorForm>
@@ -250,7 +242,9 @@ Checkout.propTypes = {
 const mapStateToProps = state => {
   return {
     orders: state.cart.orders,
-    idToken: state.auth.idToken
+    idToken: state.auth.idToken,
+    sendingOrder: state.checkout.sending,
+    purchased: state.checkout.purchaseOrderId
   };
 };
 

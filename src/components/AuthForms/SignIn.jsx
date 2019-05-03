@@ -141,8 +141,7 @@ function signIn(props) {
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error,
-    loading: state.auth.loading
+    error: state.auth.error
   };
 };
 
