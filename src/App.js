@@ -17,6 +17,8 @@ import { connect } from "react-redux";
 
 import * as actions from "./store/actions/index";
 
+import axios from "./axios-ramen";
+
 const app = props => {
   // skip login step if there is a valid token id in localStorage
   if (localStorage.getItem("token") && !props.isAuthenticated)
@@ -31,6 +33,35 @@ const app = props => {
 
       {props.hasOrders ? (
         <Route path="/orders/checkout" exact component={Checkout} />
+      ) : null}
+
+      {props.hasOrders ? (
+        <Route
+          path="/orders/history"
+          exact
+          render={() => {
+            return (
+              <React.Fragment>
+                <h1>Get history here</h1>;
+                {axios
+                  .get(
+                    "/orders.json?auth=" +
+                      props.idToken +
+                      '&orderBy="userId"&equalTo="' +
+                      props.userId +
+                      '"'
+                  )
+                  .then(response => {
+                    console.log(response.data);
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  })}
+                ;
+              </React.Fragment>
+            );
+          }}
+        />
       ) : null}
 
       <Redirect to="/" component={OrderLayout} />
@@ -57,7 +88,9 @@ const app = props => {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.idToken !== null,
-    hasOrders: state.cart.orders.length > 0
+    hasOrders: state.cart.orders.length > 0,
+    idToken: state.auth.idToken,
+    userId: state.auth.userId
   };
 };
 

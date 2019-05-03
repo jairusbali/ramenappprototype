@@ -27,7 +27,6 @@ export const authFail = error => {
 // isSignUp false ==> SignIn functionality
 export const auth = (email, password, isSignUp) => {
   return dispatch => {
-    console.log(process.env.REACT_APP_FIREBASE_API_KEY);
     dispatch(authStart());
     const authData = {
       email: email,

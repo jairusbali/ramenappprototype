@@ -13,7 +13,7 @@ import CheckoutSummary from "../../containers/CheckoutSummary/CheckoutSummary";
 const styles = {
   root: {
     flexGrow: 1,
-    position: 'sticky',
+    position: "sticky",
     top: 0,
     zIndex: 99
   },
@@ -39,11 +39,17 @@ function navBar(props) {
           {props.isAuthenticated ? (
             <>
               <Button component={Link} to="/order" color="inherit">
-                Order
+                Menu
               </Button>
               {props.hasOrders ? (
                 <Button component={Link} to="/orders/checkout" color="inherit">
                   Checkout
+                </Button>
+              ) : null}
+
+              {props.hasOrders ? (
+                <Button component={Link} to="/orders/history" color="inherit">
+                  Order History
                 </Button>
               ) : null}
               <Button component={Link} to="/logout" color="inherit">

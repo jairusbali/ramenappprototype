@@ -178,10 +178,38 @@ const Checkout = props => {
 
   const circularProgress = props.sendingOrder ? <CircularProgress /> : null;
 
-  console.log("checkout submit");
-  if (activeStep === steps.length && !props.purchased && !props.sendingOrder)
-    props.submitOrders(props.idToken, props.orders, addressFormState);
+  const confirmationPage = props.purchaseOrderId ? (
+    <React.Fragment>
+      <Typography variant="h5" gutterBottom>
+        Thank you for your order.
+      </Typography>
+      <Typography variant="subtitle1">
+        Your order ID is {props.purchaseOrderId.replace(/-|_/g, "")}. We have
+        emailed your order confirmation, and will send you an update of the
+        status of your delivery.
+      </Typography>
+    </React.Fragment>
+  ) : null;
 
+  console.log("checkout submit");
+  if (
+    activeStep === steps.length &&
+    !props.purchaseOrderId &&
+    !props.sendingOrder &&
+    !props.checkoutError
+  )
+    props.submitOrders(
+      props.idToken,
+      props.orders,
+      addressFormState,
+      props.userId
+    );
+
+  const errorMessage = props.checkoutError ? (
+    <h1>{props.checkoutError}</h1>
+  ) : null;
+
+  // show form buttons if user have not placed order
   const formButtons =
     activeStep < steps.length ? (
       <React.Fragment>
@@ -226,7 +254,9 @@ const Checkout = props => {
               ))}
             </Stepper>
             {/* here */}
+            {errorMessage}
             {circularProgress}
+            {confirmationPage}
             {formButtons}
           </Paper>
         </main>
@@ -242,16 +272,18 @@ Checkout.propTypes = {
 const mapStateToProps = state => {
   return {
     orders: state.cart.orders,
+    userId: state.auth.userId,
     idToken: state.auth.idToken,
     sendingOrder: state.checkout.sending,
-    purchased: state.checkout.purchaseOrderId
+    purchaseOrderId: state.checkout.purchaseOrderId,
+    checkoutError: state.checkout.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    submitOrders: (token, orders, deliveryInfo) => {
-      dispatch(actions.submitOrders(token, orders, deliveryInfo));
+    submitOrders: (token, orders, deliveryInfo, userId) => {
+      dispatch(actions.submitOrders(token, orders, deliveryInfo, userId));
     }
   };
 };
