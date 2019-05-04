@@ -20,8 +20,6 @@ import thunk from "redux-thunk";
 
 import { BrowserRouter } from "react-router-dom";
 
-import CartTest from "./cartTest";
-
 const rootReducer = combineReducers({
   menu: menuReducer,
   cart: cartReducer,
@@ -38,7 +36,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename="/ramenappprototype">
       <App />
     </BrowserRouter>
   </Provider>,

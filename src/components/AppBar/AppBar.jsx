@@ -8,8 +8,6 @@ import Button from "@material-ui/core/Button";
 
 import { Link } from "react-router-dom";
 
-import CheckoutSummary from "../../containers/CheckoutSummary/CheckoutSummary";
-
 const styles = {
   root: {
     flexGrow: 1,

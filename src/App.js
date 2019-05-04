@@ -9,7 +9,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import OrderLayout from "./components/OrderLayout/OrderLayout";
 
 import Logout from "./components/Logout/Logout";
-import CheckoutSummary from "./containers/CheckoutSummary/CheckoutSummary";
 
 import Checkout from "./containers/Checkout/Checkout";
 
@@ -18,8 +17,6 @@ import { connect } from "react-redux";
 import OrdersHistory from "./containers/OrdersHistory/OrdersHistory";
 
 import * as actions from "./store/actions/index";
-
-import axios from "./axios-ramen";
 
 const app = props => {
   // skip login step if there is a valid token id in localStorage

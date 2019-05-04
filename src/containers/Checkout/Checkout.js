@@ -9,9 +9,8 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import AddressForm from "./CheckoutSteps/AddressForm";
-import PaymentForm from "./CheckoutSteps/PaymentForm";
 import Review from "./CheckoutSteps/Review";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { ValidatorForm } from "react-material-ui-form-validator";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { connect } from "react-redux";
@@ -76,22 +75,6 @@ const checkoutAddressFormReducer = (state, action) => {
   }
 };
 
-const checkoutPaymentFormReducer = (state, action) => {
-  switch (action.type) {
-    case "field":
-      return {
-        ...state,
-        [action.name]: action.value
-      };
-
-    case "reset":
-      return action.payload;
-
-    default:
-      return state;
-  }
-};
-
 const addressFormInitialState = {
   firstName: "",
   lastName: "",
@@ -117,11 +100,6 @@ const Checkout = props => {
   useEffect(() => {
     const data = localStorage.getItem("ramenAppAddressFormData");
     if (data) addressFormDispatch({ type: "reset", payload: JSON.parse(data) });
-
-    return () => {
-      console.log("addressFormState", addressFormState);
-      console.log("unmounting...");
-    };
   }, []);
 
   // save to local storage
@@ -149,10 +127,6 @@ const Checkout = props => {
     event.preventDefault();
     const prevStep = activeStep - 1;
     setActiveStep(prevStep);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   const getStepContent = step => {
