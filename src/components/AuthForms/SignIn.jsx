@@ -54,7 +54,7 @@ const styles = theme => ({
   }
 });
 
-function signIn(props) {
+const SignIn = props => {
   const { classes } = props;
 
   const [state, setState] = useState({
@@ -136,7 +136,7 @@ function signIn(props) {
       </Paper>
     </main>
   );
-}
+};
 
 const mapStateToProps = state => {
   return {
@@ -157,4 +157,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(signIn));
+)(withStyles(styles)(SignIn));

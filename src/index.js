@@ -18,7 +18,7 @@ import {
 
 import thunk from "redux-thunk";
 
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import CartTest from "./cartTest";
 
@@ -38,9 +38,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <HashRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

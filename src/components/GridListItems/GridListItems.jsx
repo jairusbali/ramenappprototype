@@ -13,6 +13,8 @@ import {
   priceMapping
 } from "../../CentralMenu/CentralMenu";
 
+const base_url = window.location.origin;
+
 const styles = theme => ({
   root: {
     width: "100%",
@@ -54,6 +56,8 @@ class GridListItems extends React.Component {
   render() {
     const { classes } = this.props;
 
+    console.log("current path", base_url);
+
     return (
       <div className={classes.root}>
         <GridList
@@ -69,7 +73,8 @@ class GridListItems extends React.Component {
                     ? classes.Images + " " + classes.Checked
                     : classes.Images
                 }
-                src={optionImages[option]}
+                src={process.env.PUBLIC_URL + optionImages[option]}
+                // src={require(optionImages[option])}
                 onClick={() => this.props.choiceHandler(option)}
                 alt={option}
               />

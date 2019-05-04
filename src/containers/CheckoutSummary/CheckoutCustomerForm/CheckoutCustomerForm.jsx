@@ -56,7 +56,7 @@ const styles = theme => ({
   }
 });
 
-const orderForm = props => {
+const OrderForm = props => {
   const { classes } = props;
   const [formData, setFormData] = useState({
     firstName: "",
@@ -156,4 +156,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(orderForm));
+export default connect(mapStateToProps)(withStyles(styles)(OrderForm));

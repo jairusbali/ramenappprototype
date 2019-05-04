@@ -4,7 +4,7 @@ import OrderLayout from "./components/OrderLayout/OrderLayout";
 
 import Checkout from "./containers/CheckoutSummary/CheckoutSummary";
 
-const cartTest = () => {
+const CartTest = () => {
   const [checkoutState, setCheckoutState] = useState(false);
 
   return (
@@ -17,4 +17,4 @@ const cartTest = () => {
   );
 };
 
-export default cartTest;
+export default CartTest;
