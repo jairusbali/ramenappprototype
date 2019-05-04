@@ -45,11 +45,11 @@ function navBar(props) {
                 </Button>
               ) : null}
 
-              {props.hasOrders ? (
+              {/* {props.hasOrders ? (
                 <Button component={Link} to="/orders/history" color="inherit">
                   Order History
                 </Button>
-              ) : null}
+              ) : null} */}
               <Button component={Link} to="/logout" color="inherit">
                 Logout
               </Button>

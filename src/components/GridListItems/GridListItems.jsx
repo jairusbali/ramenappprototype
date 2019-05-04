@@ -13,8 +13,6 @@ import {
   priceMapping
 } from "../../CentralMenu/CentralMenu";
 
-const base_url = window.location.origin;
-
 const styles = theme => ({
   root: {
     width: "100%",
@@ -55,8 +53,6 @@ class GridListItems extends React.Component {
 
   render() {
     const { classes } = this.props;
-
-    console.log("current path", base_url);
 
     return (
       <div className={classes.root}>

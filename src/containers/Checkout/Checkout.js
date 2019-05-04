@@ -108,13 +108,11 @@ const Checkout = props => {
       "ramenAppAddressFormData",
       JSON.stringify(addressFormState)
     );
-
-    console.log(addressFormState);
   }, [addressFormState]);
 
   const handleNext = event => {
     event.preventDefault();
-    console.log(validatorFormRef);
+
     validatorFormRef.current.isFormValid(false).then(isValid => {
       if (isValid) {
         const nextStep = activeStep + 1;
@@ -165,7 +163,6 @@ const Checkout = props => {
     </React.Fragment>
   ) : null;
 
-  console.log("checkout submit");
   if (
     activeStep === steps.length &&
     !props.purchaseOrderId &&

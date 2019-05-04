@@ -14,8 +14,6 @@ import Checkout from "./containers/Checkout/Checkout";
 
 import { connect } from "react-redux";
 
-import OrdersHistory from "./containers/OrdersHistory/OrdersHistory";
-
 import * as actions from "./store/actions/index";
 
 const app = props => {
@@ -34,9 +32,9 @@ const app = props => {
         <Route path="/orders/checkout" exact component={Checkout} />
       ) : null}
 
-      {props.hasOrders ? (
+      {/* {props.hasOrders ? (
         <Route path="/orders/history" exact component={OrdersHistory} />
-      ) : null}
+      ) : null} */}
 
       <Redirect to="/" component={OrderLayout} />
     </Switch>
