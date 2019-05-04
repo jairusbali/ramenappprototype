@@ -1,35 +1,32 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  sending: false,
-  purchaseOrderId: null,
-  error: null
+  error: null,
+  ordersHistory: null,
+  isLoading: false
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SEND_ORDERS_INIT: {
+    case actionTypes.FETCH_ORDERS_HISTORY_INIT:
       return {
         ...state,
-        sending: true
+        isLoading: true
       };
-    }
 
-    case actionTypes.SEND_ORDERS_SUCCESS: {
+    case actionTypes.FETCH_ORDERS_HISTORY_SUCCESS:
       return {
         ...state,
-        sending: false,
-        purchaseOrderId: action.purchaseOrderId
+        isLoading: false,
+        ordersHistory: action.ordersHistory
       };
-    }
 
-    case actionTypes.SEND_ORDERS_FAIL: {
+    case actionTypes.FETCH_ORDERS_HISTORY_FAIL:
       return {
         ...state,
-        sending: false,
+        isLoading: false,
         error: action.error
       };
-    }
 
     default:
       return state;

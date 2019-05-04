@@ -27,7 +27,7 @@ const styles = theme => ({
   }
 });
 
-const cart = props => {
+const Cart = props => {
   const [openDialogConfirmation, setOpenDialogConfirmation] = useState(false);
 
   useEffect(() => {
@@ -111,4 +111,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(cart));
+)(withStyles(styles)(Cart));

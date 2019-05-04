@@ -8,12 +8,10 @@ import Button from "@material-ui/core/Button";
 
 import { Link } from "react-router-dom";
 
-import CheckoutSummary from "../../containers/CheckoutSummary/CheckoutSummary";
-
 const styles = {
   root: {
     flexGrow: 1,
-    position: 'sticky',
+    position: "sticky",
     top: 0,
     zIndex: 99
   },
@@ -38,14 +36,20 @@ function navBar(props) {
 
           {props.isAuthenticated ? (
             <>
-              <Button component={Link} to="/order" color="inherit">
-                Order
+              <Button component={Link} to="/menu" color="inherit">
+                Menu
               </Button>
               {props.hasOrders ? (
                 <Button component={Link} to="/orders/checkout" color="inherit">
                   Checkout
                 </Button>
               ) : null}
+
+              {/* {props.hasOrders ? (
+                <Button component={Link} to="/orders/history" color="inherit">
+                  Order History
+                </Button>
+              ) : null} */}
               <Button component={Link} to="/logout" color="inherit">
                 Logout
               </Button>
