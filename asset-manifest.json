@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ramenappprototype/static/css/main.0df9947b.chunk.css",
-    "main.js": "/ramenappprototype/static/js/main.963c0d2b.chunk.js",
-    "main.js.map": "/ramenappprototype/static/js/main.963c0d2b.chunk.js.map",
+    "main.js": "/ramenappprototype/static/js/main.a7b9ae18.chunk.js",
+    "main.js.map": "/ramenappprototype/static/js/main.a7b9ae18.chunk.js.map",
     "runtime~main.js": "/ramenappprototype/static/js/runtime~main.c000df78.js",
     "runtime~main.js.map": "/ramenappprototype/static/js/runtime~main.c000df78.js.map",
-    "static/js/2.d48905fc.chunk.js": "/ramenappprototype/static/js/2.d48905fc.chunk.js",
-    "static/js/2.d48905fc.chunk.js.map": "/ramenappprototype/static/js/2.d48905fc.chunk.js.map",
+    "static/js/2.4ad70597.chunk.js": "/ramenappprototype/static/js/2.4ad70597.chunk.js",
+    "static/js/2.4ad70597.chunk.js.map": "/ramenappprototype/static/js/2.4ad70597.chunk.js.map",
     "index.html": "/ramenappprototype/index.html",
-    "precache-manifest.cb21422259592ee4aced62e031a93a7a.js": "/ramenappprototype/precache-manifest.cb21422259592ee4aced62e031a93a7a.js",
+    "precache-manifest.3eb5d198b1904186575ce60e493f6adb.js": "/ramenappprototype/precache-manifest.3eb5d198b1904186575ce60e493f6adb.js",
     "service-worker.js": "/ramenappprototype/service-worker.js",
     "static/css/main.0df9947b.chunk.css.map": "/ramenappprototype/static/css/main.0df9947b.chunk.css.map"
   }
