@@ -1,1 +1,0 @@
-{"version":3,"sources":["App.css"],"names":[],"mappings":"AAAA,EACE,QAAS,CACT,qBACF,CAEA,UAEE,gBAAiB,CACjB,WACF","file":"main.0df9947b.chunk.css","sourcesContent":["* {\n  margin: 0;\n  box-sizing: border-box;\n}\n\nhtml,\nbody {\n  max-width: 1600px;\n  margin: auto;\n}\n"]}
