@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -27,36 +27,57 @@ const styles = {
   }
 };
 
+const navReducer = (state, action) => {
+  switch (action.type) {
+    case "AUTHENTICATED":
+      return {
+        Menu: "/menu",
+        Logout: "/logout"
+      };
+
+    case "UNAUTHENTICATED":
+      return initialNavItemsState;
+
+    case "HAS_ORDERS":
+      return {
+        Menu: "/menu",
+        Checkout: "/orders/checkout",
+        Logout: "/logout"
+      };
+
+    default:
+      return state;
+  }
+};
+
+const initialNavItemsState = {
+  "Sign in": "/signin",
+  "Sign up": "/signup"
+};
+
 function NavBar(props) {
   const { classes } = props;
 
   const [showDrawer, toggleShowDrawer] = useState(false);
 
-  const toolbarItems = props.isAuthenticated ? (
-    <>
-      <Button component={Link} to="/menu" color="inherit">
-        Menu
-      </Button>
-      {props.hasOrders ? (
-        <Button component={Link} to="/orders/checkout" color="inherit">
-          Checkout
-        </Button>
-      ) : null}
-
-      <Button component={Link} to="/logout" color="inherit">
-        Logout
-      </Button>
-    </>
-  ) : (
-    <>
-      <Button component={Link} to="/signin" color="inherit">
-        SignIn
-      </Button>
-      <Button component={Link} to="/signup" color="inherit">
-        Sign up
-      </Button>
-    </>
+  const [navItemsState, dispatch] = useReducer(
+    navReducer,
+    initialNavItemsState
   );
+
+  useEffect(() => {
+    if (props.isAuthenticated) dispatch({ type: "AUTHENTICATED" });
+    else dispatch({ type: "UNAUTHENTICATED" });
+
+    if (props.hasOrders && props.isAuthenticated)
+      dispatch({ type: "HAS_ORDERS" });
+  }, [props.isAuthenticated, props.hasOrders]);
+
+  const toolbarItems = Object.keys(navItemsState).map(key => (
+    <Button key={key} component={Link} to={navItemsState[key]} color="inherit">
+      {key}
+    </Button>
+  ));
 
   const hamburger = (
     <IconButton
@@ -71,8 +92,6 @@ function NavBar(props) {
   const drawer = (
     <DrawerNavigation show={showDrawer} toggleDrawer={toggleShowDrawer} />
   );
-
-  console.log(showDrawer);
 
   return (
     <div className={classes.root}>
