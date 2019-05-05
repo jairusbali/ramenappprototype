@@ -69,7 +69,8 @@ class GridListItems extends React.Component {
                     ? classes.Images + " " + classes.Checked
                     : classes.Images
                 }
-                src={optionImages[option]}
+                src={process.env.PUBLIC_URL + optionImages[option]}
+                // src={require(optionImages[option])}
                 onClick={() => this.props.choiceHandler(option)}
                 alt={option}
               />

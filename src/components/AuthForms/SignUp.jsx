@@ -19,8 +19,6 @@ import { Redirect } from "react-router-dom";
 
 import SlideAlertDialog from "../../components/SlideAlertDialog/SlideAlertDialog";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
-
 const styles = theme => ({
   main: {
     width: "auto",

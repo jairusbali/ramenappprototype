@@ -38,7 +38,6 @@ const reducer = (state = initialState, action) => {
       };
 
     default:
-      console.log("auth reducer", action.type);
       return state;
   }
 };

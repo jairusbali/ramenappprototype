@@ -12,20 +12,20 @@ import {
   menuReducer,
   cartReducer,
   authReducer,
-  ordersReducer
+  checkoutReducer,
+  ordersHistoryReducer
 } from "./store/reducers/";
 
 import thunk from "redux-thunk";
 
 import { BrowserRouter } from "react-router-dom";
 
-import CartTest from "./cartTest";
-
 const rootReducer = combineReducers({
   menu: menuReducer,
   cart: cartReducer,
   auth: authReducer,
-  orders: ordersReducer
+  checkout: checkoutReducer,
+  ordersHistory: ordersHistoryReducer
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -36,7 +36,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename="/ramenappprototype">
       <App />
     </BrowserRouter>
   </Provider>,

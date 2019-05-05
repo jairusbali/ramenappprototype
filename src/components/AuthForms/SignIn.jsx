@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,8 +17,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
-
-import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   main: {
@@ -54,7 +51,7 @@ const styles = theme => ({
   }
 });
 
-function signIn(props) {
+const SignIn = props => {
   const { classes } = props;
 
   const [state, setState] = useState({
@@ -136,13 +133,12 @@ function signIn(props) {
       </Paper>
     </main>
   );
-}
+};
 
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error,
-    loading: state.auth.loading
+    error: state.auth.error
   };
 };
 
@@ -158,4 +154,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(signIn));
+)(withStyles(styles)(SignIn));
