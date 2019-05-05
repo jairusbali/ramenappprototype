@@ -1,44 +1,37 @@
 import React from "react";
-import PropTypes from "prop-types";
-
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { withStyles } from "@material-ui/core/styles";
 
 import { Link } from "react-router-dom";
 
-// component={Link} to="/signin"
+const styles = {
+  list: {
+    width: 250,
+    textAlign: "center"
+  }
+};
 
 const DrawerNavigation = props => {
+  const { classes } = props;
   const drawerContent = (
-    <div style={{ width: "250" }}>
+    <div className={classes.list}>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        {Object.keys(props.navItemsState).map(key => (
+          <ListItem
+            button
+            key={key}
+            component={Link}
+            to={props.navItemsState[key]}
+          >
+            <ListItemText inset primary={key} />
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
   return (
@@ -59,4 +52,4 @@ const DrawerNavigation = props => {
   );
 };
 
-export default DrawerNavigation;
+export default withStyles(styles)(DrawerNavigation);

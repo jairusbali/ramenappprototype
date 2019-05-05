@@ -9,6 +9,11 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import DrawerNavigation from "./DrawerNavigation/DrawerNavigation";
 
+import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
+// if (isWidthUp("xl", this.props.width)) {
+//   return 4;
+// }
+
 import { Link } from "react-router-dom";
 
 const styles = {
@@ -73,24 +78,34 @@ function NavBar(props) {
       dispatch({ type: "HAS_ORDERS" });
   }, [props.isAuthenticated, props.hasOrders]);
 
-  const toolbarItems = Object.keys(navItemsState).map(key => (
-    <Button key={key} component={Link} to={navItemsState[key]} color="inherit">
-      {key}
-    </Button>
-  ));
-
-  const hamburger = (
+  const toolbarItems = isWidthDown("xs", props.width) ? (
     <IconButton
+      onClick={() => toggleShowDrawer(!showDrawer)}
       className={classes.menuButton}
       color="inherit"
       aria-label="Menu"
     >
-      <MenuIcon onClick={() => toggleShowDrawer(!showDrawer)} />
+      <MenuIcon />
     </IconButton>
+  ) : (
+    Object.keys(navItemsState).map(key => (
+      <Button
+        key={key}
+        component={Link}
+        to={navItemsState[key]}
+        color="inherit"
+      >
+        {key}
+      </Button>
+    ))
   );
 
   const drawer = (
-    <DrawerNavigation show={showDrawer} toggleDrawer={toggleShowDrawer} />
+    <DrawerNavigation
+      navItemsState={navItemsState}
+      show={showDrawer}
+      toggleDrawer={toggleShowDrawer}
+    />
   );
 
   return (
@@ -101,7 +116,7 @@ function NavBar(props) {
             KINTON RAMEN
           </Typography>
           {toolbarItems}
-          {hamburger}
+
           {drawer}
         </Toolbar>
       </AppBar>
@@ -113,4 +128,4 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(NavBar);
+export default withWidth()(withStyles(styles)(NavBar));
