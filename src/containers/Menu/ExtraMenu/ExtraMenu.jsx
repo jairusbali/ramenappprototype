@@ -22,7 +22,7 @@ const styles = theme => ({
 
 const extraMenu = props => {
   return (
-    <Paper className={props.classes.root}>
+    <div className={props.classes.root}>
       <Typography variant="h5" component="h3">
         Extra
       </Typography>
@@ -31,7 +31,7 @@ const extraMenu = props => {
         checkedAction={props.toggleExtraItem}
         checkedItems={props.checkedExtras}
       />
-    </Paper>
+    </div>
   );
 };
 

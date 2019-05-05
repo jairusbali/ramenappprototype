@@ -25,7 +25,7 @@ const ramenMenu = props => {
   const ramen = Object.keys(ramenOptions);
 
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
       <Typography variant="h5" component="h3">
         Ramen
       </Typography>
@@ -34,7 +34,7 @@ const ramenMenu = props => {
         choice={props.ramenChoice}
         choiceHandler={props.ramenChoiceHandler}
       />
-    </Paper>
+    </div>
   );
 };
 

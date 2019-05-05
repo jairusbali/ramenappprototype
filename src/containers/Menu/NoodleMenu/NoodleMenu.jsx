@@ -25,7 +25,7 @@ const ramenMenu = props => {
   const noodleType = Object.keys(noodleOptions);
 
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
       <Typography variant="h5" component="h3">
         Noodle Type
       </Typography>
@@ -34,7 +34,7 @@ const ramenMenu = props => {
         choice={props.noodleChoice}
         choiceHandler={props.noodleChoiceHandler}
       />
-    </Paper>
+    </div>
   );
 };
 
