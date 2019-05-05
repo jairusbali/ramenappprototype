@@ -4,7 +4,6 @@ import { additionalToppingsOptions } from "../../../CentralMenu/CentralMenu";
 
 import { withStyles } from "@material-ui/core/styles";
 
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 import GridCheckboxList from "../../../components/GridCheckboxList/GridCheckboxList";
@@ -22,7 +21,7 @@ const styles = theme => ({
 
 const extraMenu = props => {
   return (
-    <Paper className={props.classes.root}>
+    <div className={props.classes.root}>
       <Typography variant="h5" component="h3">
         Extra
       </Typography>
@@ -31,7 +30,7 @@ const extraMenu = props => {
         checkedAction={props.toggleExtraItem}
         checkedItems={props.checkedExtras}
       />
-    </Paper>
+    </div>
   );
 };
 

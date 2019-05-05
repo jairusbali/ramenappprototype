@@ -17,6 +17,7 @@ const styles = theme => ({
   root: {
     width: "100%",
     // maxWidth: 360,
+
     backgroundColor: theme.palette.background.paper
   },
   Images: {
@@ -30,11 +31,12 @@ const styles = theme => ({
 });
 
 const CELL_HEIGHT = 250;
+const GRID_LIST_TILE_SPACING = 64;
 
 class GridListItems extends React.Component {
   getGridListCols = () => {
     if (isWidthUp("xl", this.props.width)) {
-      return 4;
+      return 3;
     }
 
     if (isWidthUp("lg", this.props.width)) {
@@ -45,7 +47,7 @@ class GridListItems extends React.Component {
       return 2;
     }
     if (isWidthUp("sm", this.props.width)) {
-      return 1;
+      return 2;
     }
     // xs
     return 1;
@@ -57,12 +59,17 @@ class GridListItems extends React.Component {
     return (
       <div className={classes.root}>
         <GridList
+          spacing={GRID_LIST_TILE_SPACING}
           cellHeight={CELL_HEIGHT}
           className={classes.gridList}
           cols={this.getGridListCols()}
         >
           {this.props.options.map(option => (
-            <GridListTile key={option} cols={option.cols || 1}>
+            <GridListTile
+              className={classes.GridLIstTile}
+              key={option}
+              cols={option.cols || 1}
+            >
               <img
                 className={
                   option === this.props.choice
