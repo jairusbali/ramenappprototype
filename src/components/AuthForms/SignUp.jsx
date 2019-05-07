@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import SlideAlertDialog from "../../components/SlideAlertDialog/SlideAlertDialog";
+import Path from "../../constants/path";
 
 const styles = theme => ({
   main: {
@@ -91,7 +92,7 @@ class SignUp extends React.Component {
     const { classes } = this.props;
 
     const authenticatedRedict = this.props.isAuthenticated ? (
-      <Redirect to="/orders" />
+      <Redirect to={Path.MENU} />
     ) : null;
 
     const errorMessage = this.props.error ? (

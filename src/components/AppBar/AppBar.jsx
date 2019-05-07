@@ -15,6 +15,7 @@ import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
 // }
 
 import { Link } from "react-router-dom";
+import Path from '../../constants/path';
 
 const styles = {
   root: {
@@ -36,8 +37,8 @@ const navReducer = (state, action) => {
   switch (action.type) {
     case "AUTHENTICATED":
       return {
-        Menu: "/menu",
-        Logout: "/logout"
+        Menu: Path.MENU,
+        Logout: Path.LOGOUT
       };
 
     case "UNAUTHENTICATED":
@@ -45,9 +46,9 @@ const navReducer = (state, action) => {
 
     case "HAS_ORDERS":
       return {
-        Menu: "/menu",
-        Checkout: "/orders/checkout",
-        Logout: "/logout"
+        Menu: Path.MENU,
+        Checkout: Path.CHECKOUT,
+        Logout: Path.LOGOUT
       };
 
     default:
@@ -56,8 +57,8 @@ const navReducer = (state, action) => {
 };
 
 const initialNavItemsState = {
-  "Sign in": "/signin",
-  "Sign up": "/signup"
+  "Sign in": Path.SIGNIN,
+  "Sign up": Path.SIGNUP
 };
 
 function NavBar(props) {
