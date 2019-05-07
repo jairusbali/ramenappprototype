@@ -2,6 +2,7 @@ import React from "react";
 import SignUp from "./components/AuthForms/SignUp";
 import SignIn from "./components/AuthForms/SignIn";
 import NavBar from "./components/AppBar/AppBar";
+import Path from "./constants/path";
 
 import "./App.css";
 
@@ -23,26 +24,26 @@ const app = props => {
 
   const routes = props.isAuthenticated ? (
     <Switch>
-      <Route path="/" exact strict component={OrderLayout} />
-      <Route path="/menu" exact strict component={OrderLayout} />
+      <Route path={Path.HOME} exact strict component={OrderLayout} />
+      <Route path={Path.MENU} exact strict component={OrderLayout} />
 
-      <Route path="/logout" exact component={Logout} />
+      <Route path={Path.LOGOUT} exact component={Logout} />
 
       {props.hasOrders ? (
-        <Route path="/orders/checkout" exact component={Checkout} />
+        <Route path={Path.CHECKOUT} exact component={Checkout} />
       ) : null}
 
       {/* {props.hasOrders ? (
         <Route path="/orders/history" exact component={OrdersHistory} />
       ) : null} */}
 
-      <Redirect to="/" component={OrderLayout} />
+      <Redirect to={Path.HOME} component={OrderLayout} />
     </Switch>
   ) : (
     <Switch>
-      <Route path="/signup" component={SignUp} />
-      <Route path="/signin" component={SignIn} />
-      <Redirect to="/signup" component={SignUp} />
+      <Route path={Path.SIGNUP} component={SignUp} />
+      <Route path={Path.SIGNIN} component={SignIn} />
+      <Redirect to={Path.SIGNUP} component={SignUp} />
     </Switch>
   );
 
