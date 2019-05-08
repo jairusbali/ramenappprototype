@@ -1,0 +1,15 @@
+header.kinton-appbar {
+  background-color: #222;
+  color: #999;
+}
+
+.kinton-logo {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.appbar-button {
+  &:hover {
+    color: #fff;
+  }
+}

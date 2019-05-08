@@ -10,6 +10,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import DrawerNavigation from "./DrawerNavigation/DrawerNavigation";
 
 import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
+import './AppBar.scss';
 // if (isWidthUp("xl", this.props.width)) {
 //   return 4;
 // }
@@ -91,6 +92,7 @@ function NavBar(props) {
   ) : (
     Object.keys(navItemsState).map(key => (
       <Button
+        className="appbar-button"
         key={key}
         component={Link}
         to={navItemsState[key]}
@@ -111,9 +113,10 @@ function NavBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className="kinton-appbar">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
+            <img className="kinton-logo" src="/assets/images/kinton_logo.png" alt="kinton logo" />
             KINTON RAMEN
           </Typography>
           {toolbarItems}
