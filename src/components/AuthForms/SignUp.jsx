@@ -29,11 +29,12 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: "auto",
-      marginRight: "auto"
+      marginRight: "auto",
+      paddingTop: theme.spacing.unit * 8,
+      paddingBottom: theme.spacing.unit * 8
     }
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

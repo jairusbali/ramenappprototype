@@ -23,7 +23,8 @@ const styles = theme => ({
     left: "auto",
     bottom: 30,
     right: 30,
-    position: "fixed"
+    position: "fixed",
+    backgroundColor: "#212121"
   }
 });
 
