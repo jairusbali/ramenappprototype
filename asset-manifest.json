@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ramenappprototype/static/css/main.b196cda4.chunk.css",
+    "main.js": "/ramenappprototype/static/js/main.9e280863.chunk.js",
+    "main.js.map": "/ramenappprototype/static/js/main.9e280863.chunk.js.map",
+    "runtime~main.js": "/ramenappprototype/static/js/runtime~main.c000df78.js",
+    "runtime~main.js.map": "/ramenappprototype/static/js/runtime~main.c000df78.js.map",
+    "static/js/2.55b0f149.chunk.js": "/ramenappprototype/static/js/2.55b0f149.chunk.js",
+    "static/js/2.55b0f149.chunk.js.map": "/ramenappprototype/static/js/2.55b0f149.chunk.js.map",
+    "index.html": "/ramenappprototype/index.html",
+    "precache-manifest.f40724daedd2c28b7c6864d213187365.js": "/ramenappprototype/precache-manifest.f40724daedd2c28b7c6864d213187365.js",
+    "service-worker.js": "/ramenappprototype/service-worker.js",
+    "static/css/main.b196cda4.chunk.css.map": "/ramenappprototype/static/css/main.b196cda4.chunk.css.map"
+  }
+}
